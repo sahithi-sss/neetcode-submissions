@@ -1,0 +1,25 @@
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+
+        return max(self.helper(nums[1:]), self.helper(nums[:-1]))
+
+    def helper(self, nums:List[int]) -> int:
+        n = len(nums)
+        if not nums:
+            return 0
+        if len(nums) ==1 :
+            return nums[0]
+        cache = [-1] * n
+        def dfs(i):
+            if i >= n:
+                return 0
+            if cache[i] != -1:
+                return cache[i]
+            cache[i] = max(dfs(i+1), dfs(i+2)+ nums[i])
+            return cache[i]
+        return dfs(0)
+        
